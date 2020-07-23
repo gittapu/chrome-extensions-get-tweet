@@ -1,0 +1,18 @@
+{
+  "name": "Tweet copy",
+  "description" : "Get the tweet from button.",
+  "version": "1.0",
+  "permissions": [
+    "contextMenus"
+  ],
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+  "manifest_version": 2
+}
