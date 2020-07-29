@@ -12,21 +12,22 @@ chrome.runtime.onInstalled.addListener(function(){
 
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-  // ボタンから本文とURLを取得する
-  const matches = info.linkUrl.match(/text=([^&]+).?url=([^&]+)/);
-  if (matches.length != 3) {
-    return;
-  }
-  
-  const text = decodeURIComponent(matches[1].replace(/\+/g, ' '));
-  const url = decodeURIComponent(matches[2].replace(/\+/g, ' '));
-  const tweet = text + "\n" + url;
+  // Get text and url of the hyperlink
+  const params = (new URL(info.linkUrl)).searchParams;
+  const tweet = params.get('text') + "\n" + params.get('url');
 
-  // クリップボードにコピーする
-  const elm = document.createElement("textarea");
-  document.body.appendChild(elm);
-  elm.textContent = tweet;
-  elm.select();
-  document.execCommand('copy');
-  document.body.removeChild(elm);
+  // Copy tweet to the clipboard
+  copyToClipboard(tweet)
 });
+
+function copyToClipboard(str) {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
