@@ -1,10 +1,10 @@
 'use strict';
 
-// 拡張機能がインストールされたときの処理
+// initialize
 chrome.runtime.onInstalled.addListener(function(){
-  // 親階層のメニューを生成
+  // create menu
   const parent_menu = chrome.contextMenus.create({
-    title: "ツイートをコピー", 
+    title: "Copy a tweet", 
     contexts:["link"],
     id: "copy-tweet"
   });
